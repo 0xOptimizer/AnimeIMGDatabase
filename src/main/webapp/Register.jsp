@@ -219,7 +219,6 @@ input{
 } */
 </style>
     <title>HuSnap Register</title>
-    <!-- Add your CSS stylesheets and any other necessary external resources here -->
 </head>
 <body>
     <div class="card">
