@@ -35,7 +35,8 @@ body {
   
   color: #224;
   background:
-    url(https://source.unsplash.com/E8Ufcyxz514/2400x1823)
+    /*url(https://source.unsplash.com/E8Ufcyxz514/2400x1823)*/
+    url(https://cdn.discordapp.com/attachments/594230632163442688/1131843493581557841/PolkaSocietyCar.png)
     center / cover no-repeat fixed;
 }
 
