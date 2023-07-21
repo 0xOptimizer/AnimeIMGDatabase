@@ -65,6 +65,7 @@ body::after {
   right: 500px;
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: space-between;
 
   max-width: 500px;
@@ -195,19 +196,24 @@ p {
 	color: white;
 }
 
+.HuLogo {
+	width: 300px;
+	height: 91px;
+}
+
 
 /* .card-footer {
   font-size: 0.65em;
   color: #446;
 } */
 </style>
-    <title>Anime IMG Database</title>
+    <title>HuSnap</title>
     <!-- Add your CSS stylesheets and any other necessary external resources here -->
 </head>
 <body>
     <div class="card">
-    <p class = "welcomeText"><strong>HuSnap</strong></p>
-  <p>Lorem ipsum quia dolor sit amet.</p>
+  	<img class ="HuLogo" src="HuSnap.png" alt="HuSnap Logo">
+  <p>Start uploading images today!</p>
   <div class="btn-container">
   <div class="btn"><a href="LogIn.jsp">Log In</a></div>
   <div class="btn"><a href="Register.jsp" >Register</a></div>

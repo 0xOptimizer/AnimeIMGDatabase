@@ -66,7 +66,7 @@ body::after {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
+  align-items: center;
   max-width: 500px;
   height: 300px;
   padding: 35px;
@@ -216,7 +216,7 @@ input{
   color: #446;
 } */
 </style>
-    <title>Anime IMG Database</title>
+    <title>HuSnap Log In</title>
     <!-- Add your CSS stylesheets and any other necessary external resources here -->
 </head>
 <body>
