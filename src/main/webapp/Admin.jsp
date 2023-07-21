@@ -214,6 +214,23 @@ p {
   cursor: pointer;
 }
 
+.delete-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 20px;
+  height: 20px;
+  background-color: #f00; /* Set your desired delete button color here */
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 50%;
+  font-size: 14px;
+  font-weight: bold;
+}
+
 
 /* .card-footer {
   font-size: 0.65em;
@@ -228,15 +245,31 @@ p {
   	<p class="welcomeText">Welcome, [USER]</p>
   
   <!-- Additional squares -->
-  <div class="square-container">
-    <div class="square" onclick="uploadImage()"></div>
-    <div class="square" onclick="uploadImage()"></div>
-    <div class="square" onclick="uploadImage()"></div>
-    <div class="square" onclick="uploadImage()"></div>
-    <div class="square" onclick="uploadImage()"></div>
-    <div class="square" onclick="uploadImage()"></div>
-    <div class="square" onclick="uploadImage()"></div>
-    <div class="square" onclick="uploadImage()"></div>
+<div class="square-container">
+    <div class="square" id="photo1">
+      <div class="delete-btn" onclick="deletePhoto(1)">X</div>
+    </div>
+    <div class="square" id="photo2">
+      <div class="delete-btn" onclick="deletePhoto(2)">X</div>
+    </div>
+    <div class="square" id="photo3">
+      <div class="delete-btn" onclick="deletePhoto(3)">X</div>
+    </div>
+    <div class="square" id="photo4">
+      <div class="delete-btn" onclick="deletePhoto(4)">X</div>
+    </div>
+    <div class="square" id="photo5">
+      <div class="delete-btn" onclick="deletePhoto(5)">X</div>
+    </div>
+    <div class="square" id="photo6">
+      <div class="delete-btn" onclick="deletePhoto(6)">X</div>
+    </div>
+    <div class="square" id="photo7">
+      <div class="delete-btn" onclick="deletePhoto(7)">X</div>
+    </div>
+    <div class="square" id="photo8">
+      <div class="delete-btn" onclick="deletePhoto(8)">X</div>
+    </div>
   </div>
   
   <div class="btn-container">
@@ -255,5 +288,9 @@ function uploadImage() {
   // Implement your logic to handle the image upload here
   alert("You clicked on a square. Implement your image upload logic here.");
 }
+function deletePhoto(photoNumber) {
+	  var photoElement = document.getElementById('photo' + photoNumber);
+	  photoElement.remove();
+	}
 </body>
 </html>
