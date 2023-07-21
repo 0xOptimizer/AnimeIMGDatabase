@@ -206,11 +206,15 @@ p {
 </head>
 <body>
     <div class="card">
-    <p class = "welcomeText"><strong>Register</strong></p>
-  <p>Lorem ipsum quia dolor sit amet.</p>
+    <p class = "welcomeText"><strong>Log In</strong></p>
+  <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <br>
+        <div class="btn"><a href="Home.jsp">Log In</a></div>
   <div class="btn-container">
-  <div class="btn"><a href="#">Log In</a></div>
-  <div class="btn"><a href="Register.jsp" >Register</a></div>
   </div>
   <!-- <p class="card-footer">Lorem Ipsum</p> -->
 </div>
