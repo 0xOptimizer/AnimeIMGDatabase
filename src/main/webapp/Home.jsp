@@ -27,7 +27,6 @@ p:not(:last-child) {
 body {
   font: 1em/1.618 Inter, sans-serif;
   overflow: hidden;
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -38,7 +37,7 @@ body {
   color: #224;
   background:
     /*url(https://source.unsplash.com/E8Ufcyxz514/2400x1823)*/
-    url(https://cdn.discordapp.com/attachments/594230632163442688/1131843493581557841/PolkaSocietyCar.png)
+    url(https://wallpaperaccess.com/full/6604090.gif)
     center / cover no-repeat fixed;
 }
 
@@ -60,7 +59,7 @@ body {
 
   border: 1px solid rgba(255, 255, 255, .25);
   border-radius: 20px;
-  background-color: rgba(255, 255, 255, 0.45);
+  background-color: rgba(0, 0, 0, 0.45);
   box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.25);
 
   backdrop-filter: blur(15px);
@@ -76,6 +75,7 @@ body {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	color: white;
 }
 .card .btn a {
 	position: absolute;
@@ -171,16 +171,14 @@ body {
 	box-shadow: 0 0 5px #2db2ff, 0 0 15px #2db2ff, 0 0 30px #2db2ff,
 		0 0 60px #2db2ff;
 }
-.card .btn:nth-child(3)::before, /* 3*/
-.card .btn:nth-child(3)::after {
-	background: #1eff45;
-	box-shadow: 0 0 5px #1eff45, 0 0 15px #1eff45, 0 0 30px #1eff45,
-		0 0 60px #1eff45;
-}
 
 .welcomeText {
 	text-align: center;
 	font-size: 30px;
+}
+
+p {
+	color: white;
 }
 
 
