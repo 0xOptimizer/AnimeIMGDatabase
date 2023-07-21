@@ -234,3 +234,12 @@ p {
   font-size: 0.65em;
   color: #446;
 } */
+
+@keyframes dropAnimation {
+  0% {
+    transform: rotate(20deg) scale(1.5);
+  }
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
+}

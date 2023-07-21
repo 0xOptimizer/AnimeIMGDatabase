@@ -10,6 +10,10 @@ function previewImage(input, dropZone) {
             img.style.width = "100%";
             img.style.height = "100%";
             img.style.objectFit = "cover";
+            
+            // Add the drop animation
+            img.style.animation = "dropAnimation 0.4s cubic-bezier(.22,.68,0,1.71)";
+            dropZone.css("overflow", "visible");
 
             // Remove any existing images in the drop-zone before appending the new one
             dropZone.find("img").remove();
@@ -20,6 +24,11 @@ function previewImage(input, dropZone) {
 
             // Store the original image in localStorage
             localStorage.setItem(input.name, e.target.result);
+            
+            // Listen for the end of the animation and then set the overflow back to 'hidden'
+            img.addEventListener('animationend', function() {
+                dropZone.css("overflow", "hidden");
+            });
         };
         reader.readAsDataURL(input.files[0]);
     } else {
