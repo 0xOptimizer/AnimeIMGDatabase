@@ -212,6 +212,7 @@ p {
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  position: relative;
 }
 
 .delete-btn {
