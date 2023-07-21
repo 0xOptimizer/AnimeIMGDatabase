@@ -206,12 +206,17 @@ p {
   width: 250px;
   height: 250px;
   margin: 10px;
-  background-color: #fff; /* Set your desired background color here */
-  border: 1px solid #ccc; /* Set your desired border color here */
+  /*background-color: #fff; Set your desired background color here */
+  /*border: 1px solid #ccc; Set your desired border color here */
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, .25);
+  border-radius: 20px;
+  background-color: rgba(0, 0, 0, 0.45);
+  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(15px);
 }
 
 
