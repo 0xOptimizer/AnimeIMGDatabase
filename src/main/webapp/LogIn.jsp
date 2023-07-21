@@ -61,7 +61,7 @@ body::after {
 
 .card {
   max-width: 300px;
-  min-height: 200px;
+  min-height: 400px;
   right: 500px;
   display: flex;
   flex-direction: column;
@@ -179,12 +179,6 @@ body::after {
 	box-shadow: 0 0 5px #ff1f71, 0 0 15px #ff1f71, 0 0 30px #ff1f71,
 		0 0 60px #ff1f71;
 }
-.card .btn:nth-child(2)::before, /* 2*/
-.card .btn:nth-child(2)::after {
-	background: #2db2ff;
-	box-shadow: 0 0 5px #2db2ff, 0 0 15px #2db2ff, 0 0 30px #2db2ff,
-		0 0 60px #2db2ff;
-}
 
 .welcomeText {
 	text-align: center;
@@ -193,6 +187,27 @@ body::after {
 
 p {
 	color: white;
+}
+
+label {
+	color: white;
+}
+
+input{
+    display: block;
+    height: 50px;
+    width: 80%;
+    background-color: rgba(255,255,255,0.07);
+    border-radius: 3px;
+    padding: 0 10px;
+    margin-left: 10px;
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 300;
+    color: white;
+}
+::placeholder{
+    color: #e5e5e5;
 }
 
 
@@ -207,15 +222,15 @@ p {
 <body>
     <div class="card">
     <p class = "welcomeText"><strong>Log In</strong></p>
-  <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
+  <label for="email"><strong>Email:</strong></label>
+        <input type="email" id="email" name="email" required placeholder="Email">
         <br>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
+        <label for="password"><strong>Password:</strong></label>
+        <input type="password" id="password" name="password" required placeholder="Password">
         <br>
+        <div class="btn-container">
         <div class="btn"><a href="Home.jsp">Log In</a></div>
-  <div class="btn-container">
-  </div>
+  		</div>
   <!-- <p class="card-footer">Lorem Ipsum</p> -->
 </div>
     <!-- Add any other content or elements as needed -->

@@ -206,10 +206,10 @@ p {
 </head>
 <body>
     <div class="card">
-    <p class = "welcomeText"><strong>Register</strong></p>
+    <p class = "welcomeText"><strong>HuSnap</strong></p>
   <p>Lorem ipsum quia dolor sit amet.</p>
   <div class="btn-container">
-  <div class="btn"><a href="#">Log In</a></div>
+  <div class="btn"><a href="LogIn.jsp">Log In</a></div>
   <div class="btn"><a href="Register.jsp" >Register</a></div>
   </div>
   <!-- <p class="card-footer">Lorem Ipsum</p> -->

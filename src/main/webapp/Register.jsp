@@ -61,13 +61,15 @@ body::after {
 
 .card {
   max-width: 300px;
-  min-height: 200px;
+  min-height: 400px;
   right: 500px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  color: white;
 
   max-width: 500px;
+  width: 300px;
   height: 300px;
   padding: 35px;
 
@@ -175,12 +177,6 @@ body::after {
 }
 .card .btn:nth-child(1)::before, /*chnage 1*/
 .card .btn:nth-child(1)::after {
-	background: #ff1f71;
-	box-shadow: 0 0 5px #ff1f71, 0 0 15px #ff1f71, 0 0 30px #ff1f71,
-		0 0 60px #ff1f71;
-}
-.card .btn:nth-child(2)::before, /* 2*/
-.card .btn:nth-child(2)::after {
 	background: #2db2ff;
 	box-shadow: 0 0 5px #2db2ff, 0 0 15px #2db2ff, 0 0 30px #2db2ff,
 		0 0 60px #2db2ff;
@@ -195,6 +191,27 @@ p {
 	color: white;
 }
 
+label {
+	color: white;
+}
+
+input{
+    display: block;
+    height: 50px;
+    width: 80%;
+    background-color: rgba(255,255,255,0.07);
+    border-radius: 3px;
+    padding: 0 10px;
+    margin-left: 10px;
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 300;
+    color: white;
+}
+::placeholder{
+    color: #e5e5e5;
+}
+
 
 /* .card-footer {
   font-size: 0.65em;
@@ -206,17 +223,16 @@ p {
 </head>
 <body>
     <div class="card">
-    <p class = "welcomeText"><strong>HuSnap</strong></p>
-  <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
+    <p class = "welcomeText"><strong>Register</strong></p>
+  <label for="email"><strong>Email:</strong></label>
+        <input type="email" id="email" name="email" required placeholder="Email">
         <br>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
+        <label for="password"><strong>Password:</strong></label>
+        <input type="password" id="password" name="password" required placeholder="Password">
         <br>
   <div class="btn-container">
   <div class="btn"><a href="LogIn.jsp" >Register</a></div>
   </div>
-  <!-- <p class="card-footer">Lorem Ipsum</p> -->
 </div>
     <!-- Add any other content or elements as needed -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
