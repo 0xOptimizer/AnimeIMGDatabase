@@ -256,9 +256,21 @@ p {
 /* Your existing scripts here */
 
 /* Function to handle square click (You can customize this according to your needs) */
-function uploadImage() {
-  // Implement your logic to handle the image upload here
-  alert("You clicked on a square. Implement your image upload logic here.");
+function readAndConvertImg(input) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+
+    reader.onload = function (e) {
+      var base64Img = e.target.result;
+      console.log(base64Img); // This will be your base64 encoded image
+    };
+
+    reader.readAsDataURL(input.files[0]);
+  }
 }
+
+$("#imgInput").change(function () {
+  readAndConvertImg(this);
+});
 </body>
 </html>
