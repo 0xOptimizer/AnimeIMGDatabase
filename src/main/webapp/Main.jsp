@@ -60,16 +60,13 @@ body::after {
 }
 
 .card {
-  max-width: 300px;
   min-height: 200px;
-  right: 500px;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: space-between;
 
-  max-width: 500px;
-  height: 300px;
+  height: 800px;
+  width: 1600px;
   padding: 35px;
 
   border: 1px solid rgba(255, 255, 255, .25);
@@ -100,7 +97,7 @@ body::after {
 	height: 100%;
 	display: flex;
 	justify-content: center;
-	align-items: center; /* very important in aligning everything to center */
+	align-items: center;
 	background: rgba(255, 255, 255, 0.05);
 	box-shadow: 0 15px 15px rgba(0, 0, 0, 0.3);
 	border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -213,12 +210,11 @@ p {
 <body>
     <div class="card">
   	<img class ="HuLogo" src="HuSnap.png" alt="HuSnap Logo">
-  <p>Start uploading images today!</p>
+  	<p>Welcome, [USER]</p>
   <div class="btn-container">
-  <div class="btn"><a href="LogIn.jsp">Log In</a></div>
-  <div class="btn"><a href="Register.jsp" >Register</a></div>
+  <div class="btn"><a href="#">Upload</a></div>
+  <div class="btn"><a href="#">Log Out</a></div>
   </div>
-  <!-- <p class="card-footer">Lorem Ipsum</p> -->
 </div>
     <!-- Add any other content or elements as needed -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

@@ -229,7 +229,7 @@ input{
         <input type="password" id="password" name="password" required placeholder="Password">
         <br>
         <div class="btn-container">
-        <div class="btn"><a href="Home.jsp">Log In</a></div>
+        <div class="btn"><a href="Main.jsp">Log In</a></div>
   		</div>
   <!-- <p class="card-footer">Lorem Ipsum</p> -->
 </div>
