@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <style>
 :root {
   font-size: 20px;
@@ -25,6 +26,7 @@ p:not(:last-child) {
 
 body {
   font: 1em/1.618 Inter, sans-serif;
+  overflow: hidden;
 
   display: flex;
   align-items: center;
@@ -38,6 +40,11 @@ body {
     /*url(https://source.unsplash.com/E8Ufcyxz514/2400x1823)*/
     url(https://cdn.discordapp.com/attachments/594230632163442688/1131843493581557841/PolkaSocietyCar.png)
     center / cover no-repeat fixed;
+}
+
+.btn-container {
+  display: flex;
+  justify-content: space-between;
 }
 
 .card {
@@ -74,7 +81,7 @@ body {
 	position: absolute;
 	top: 0;
 	left: 0;
-	width: 100%;
+	width: 90%;
 	height: 100%;
 	display: flex;
 	justify-content: center;
@@ -117,7 +124,7 @@ body {
 	position: absolute;
 	left: 50%;
 	transform: translatex(-50%);
-	bottom: -5px;
+	bottom: -25px;
 	width: 30px;
 	height: 10px;
 	background: #f00;
@@ -127,14 +134,15 @@ body {
 }
 .card .btn:hover::before /*lightup button*/ {
 	bottom: 0;
-	height: 50%;
-	width: 80%;
+	height: 100%;
+	width: 100%;
 	border-radius: 30px;
 }
 
 .card .btn::after {
 	content: "";
 	position: absolute;
+	overflow: hidden;
 	left: 50%;
 	transform: translatex(-50%);
 	top: -5px;
@@ -146,9 +154,9 @@ body {
 	transition-delay: 0.5;
 }
 .card .btn:hover::after /*lightup button*/ {
-	top: 0;
-	height: 50%;
-	width: 80%;
+	top: 35px;
+	height: 10%;
+	width: 10%;
 	border-radius: 30px;
 }
 .card .btn:nth-child(1)::before, /*chnage 1*/
@@ -170,6 +178,11 @@ body {
 		0 0 60px #1eff45;
 }
 
+.welcomeText {
+	text-align: center;
+	font-size: 30px;
+}
+
 
 /* .card-footer {
   font-size: 0.65em;
@@ -181,10 +194,17 @@ body {
 </head>
 <body>
     <div class="card">
-  <p>A glass-like card to demonstrate the <strong>Glassmorphism UI design</strong> trend.</p>
+    <p class = "welcomeText"><strong>Welcome!</strong></p>
+  <p>Lorem ipsum quia dolor sit amet.</p>
+  <div class="btn-container">
   <div class="btn"><a href="#">Log In</a></div>
+  <div class="btn"><a href="#" >Register</a></div>
+  </div>
   <!-- <p class="card-footer">Lorem Ipsum</p> -->
 </div>
     <!-- Add any other content or elements as needed -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>
