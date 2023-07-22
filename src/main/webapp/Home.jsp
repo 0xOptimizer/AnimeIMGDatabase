@@ -29,6 +29,7 @@ body {
   font: 1em/1.618 Inter, sans-serif;
   overflow: hidden;
   display: flex;
+  zoom: 0.75;
   align-items: center;
   justify-content: center;
   
