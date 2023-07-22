@@ -72,7 +72,7 @@ function handleDrop(e, onlyImagesAllowed, container) {
     e.stopPropagation();
     let dropZone = $(e.target).closest(".square");
     let files = e.originalEvent.dataTransfer.files;
-    let input = dropZone.siblings("input[type='file']")[0];
+    let input = dropZone.parent().siblings("input[type='file']")[0];
 
     // Store the dropped files in the droppedFiles variable
     droppedFiles[input.id] = files;
