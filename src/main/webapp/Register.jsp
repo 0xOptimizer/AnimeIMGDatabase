@@ -222,17 +222,21 @@ input{
 </head>
 <body>
     <div class="card">
-    <p class = "welcomeText"><strong>Register</strong></p>
-  <label for="email"><strong>Email:</strong></label>
-        <input type="email" id="email" name="email" required placeholder="Email">
-        <br>
-        <label for="password"><strong>Password:</strong></label>
-        <input type="password" id="password" name="password" required placeholder="Password">
-        <br>
-  <div class="btn-container">
-  <div class="btn"><a href="LogIn.jsp" >Register</a></div>
-  </div>
-</div>
+        <p class="welcomeText"><strong>Register</strong></p>
+        <form action="UserServlet" method="post">
+            <label for="email"><strong>Email:</strong></label>
+            <input type="email" id="email" name="email" required placeholder="Email">
+            <br>
+            <label for="password"><strong>Password:</strong></label>
+            <input type="password" id="password" name="password" required placeholder="Password">
+            <br>
+            <input type="hidden" name="action" value="register">
+            <div class="btn-container">
+                <button type="submit">Register</button>
+            </div>
+        </form>
+        <p><%= request.getAttribute("message") %></p>
+    </div>
     <!-- Add any other content or elements as needed -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
