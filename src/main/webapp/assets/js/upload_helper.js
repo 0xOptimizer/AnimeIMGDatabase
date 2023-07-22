@@ -29,6 +29,23 @@ function previewImage(input, dropZone) {
             img.addEventListener('animationend', function() {
                 dropZone.css("overflow", "hidden");
             });
+            
+            // Send image and square_id to server for uploading
+            $.ajax({
+                url: '/AnimeIMGDatabase/Main',
+                type: 'POST',
+                data: {
+			        image: img.src,
+			        square_id: dropZone.data('square_id')
+			    },
+                success: function(response) {
+                    console.log('Upload successful!');
+                    console.log(response);
+                },
+                error: function(response) {
+                    console.log('Upload error: ', response);
+                }
+            });
         };
         reader.readAsDataURL(input.files[0]);
     } else {
