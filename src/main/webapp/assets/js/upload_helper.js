@@ -28,6 +28,7 @@ function previewImage(input, dropZone) {
             // Listen for the end of the animation and then set the overflow back to 'hidden'
             img.addEventListener('animationend', function() {
                 dropZone.css("overflow", "hidden");
+                animateShine(dropZone, 300);
             });
             
             // Send image and square_id to server for uploading
@@ -108,10 +109,6 @@ function setupDropZone(dropZoneSelector, onlyImagesAllowed = false, container = 
     dropZones.on("dragover", handleDragging);
     dropZones.on("drop", function(e) {
         handleDrop(e, onlyImagesAllowed, container);
-    });
-
-    dropZones.on("click", function () {
-        $(this).parent().siblings("input[type='file']").click();
     });
 
     $("input[type='file']").on("change", function () {

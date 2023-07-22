@@ -19,8 +19,8 @@
   <div class="square-container">
     <c:forEach var="i" begin="1" end="${numOfSquares}">
       <input id="square-input_${i}" class="form-control" type="file" data-square_id="${i}" name="photo" accept="image/*" required style="display:none;">
-      <div class="square" data-square_id="${i}">
-        <div class="delete-btn" style="display: none;">X</div>
+      <div class="square-wrapper" data-square_id="${i}">
+        <div class="square" data-square_id="${i}"></div>
       </div>
     </c:forEach>
   </div>
@@ -44,32 +44,40 @@ $(document).ready(function() {
 	</c:forEach>
 	$.get('/AnimeIMGDatabase/api/upload', function(images) {
 	    if(images != null) {
-	    	console.log('Images found');
-	        images.forEach(function(imageObj) {
-	        	console.log('Parsing object: ', imageObj);
-	            if(imageObj != null && imageObj.image != null) {
-	            	console.log("Appending image to " + imageObj.squareId);
-	            	console.log(typeof imageObj.squareId);
-	                var square = $('.square[data-square_id="' + imageObj.squareId + '"]');
-	                console.log(square);
-	                var img = document.createElement('img');
-	                img.src = imageObj.image; // adjust the mime type if necessary
-	                square.append(img);
-	                
-	             	// Set the CSS properties of the image to fill the drop-zone
-	                img.style.width = "100%";
-	                img.style.height = "100%";
-	                img.style.objectFit = "cover";
-	                
-	                // Add the drop animation
-	                img.style.animation = "dropAnimation 0.4s cubic-bezier(.22,.68,0,1.71)";
-	                img.parent().css("overflow", "visible");
-	                
-	             	// Listen for the end of the animation and then set the overflow back to 'hidden'
-	                img.addEventListener('animationend', function() {
-	                    img.parent().css("overflow", "hidden");
-	                });
-	            }
+	        console.log('Images found');
+	        images.forEach(function(imageObj, index) {
+	            // Set a delay for each image
+	            setTimeout(function() {
+	                console.log('Parsing object: ', imageObj);
+	                if(imageObj != null && imageObj.image != null) {
+	                    console.log("Appending image to " + imageObj.squareId);
+	                    console.log(typeof imageObj.squareId);
+	                    var square = $('.square[data-square_id="' + imageObj.squareId + '"]');
+	                    console.log(square);
+	                    var img = document.createElement('img');
+	                    img.src = imageObj.image; // adjust the mime type if necessary
+	                    square.append(img);
+	                    
+	                    // Set the CSS properties of the image to fill the drop-zone
+	                    img.style.width = "100%";
+	                    img.style.height = "100%";
+	                    img.style.objectFit = "cover";
+	                    
+	                    // Add the drop animation
+	                    img.style.animation = "dropAnimation 0.4s cubic-bezier(.22,.68,0,1.71)";
+	                    
+	                    // Convert img to jQuery object
+	                    var $img = $(img);
+
+	                    $img.parent('.square').css("overflow", "visible");
+	                    
+	                    // Listen for the end of the animation and then set the overflow back to 'hidden'
+	                    $img.on('animationend', function() {
+	                        $img.parent('.square').css("overflow", "hidden");
+	                        animateShine($img.parent('.square'), 300);
+	                    });
+	                }
+	            }, 100 * index);  // Multiply index with desired delay (100ms)
 	        });
 	    }
 	});

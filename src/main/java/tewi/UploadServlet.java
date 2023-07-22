@@ -85,6 +85,8 @@ public class UploadServlet extends HttpServlet {
 	    String username = "u797587982_husnap";
 	    String password = "tewi^uOWl&c[z62&O";
 	    Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
 
 	    try {
 	        // Register JDBC driver
@@ -93,17 +95,37 @@ public class UploadServlet extends HttpServlet {
 	        // Open a connection
 	        conn = DriverManager.getConnection(url, username, password);
 
-	        // Create SQL query
-	        String sql = "INSERT INTO user_uploads (user_id, image, square_id) values (?, ?, ?)";
+	        // Get the square_id from the request
+	        String squareId = request.getParameter("square_id");
+
+	        // Check if the record with the given square_id already exists
+	        String checkSql = "SELECT COUNT(*) FROM user_uploads WHERE square_id = ?";
+	        pstmt = conn.prepareStatement(checkSql);
+	        pstmt.setString(1, squareId);
+	        rs = pstmt.executeQuery();
+
+	        int count = 0;
+	        if (rs.next()) {
+	            count = rs.getInt(1);
+	        }
+
+	        String sql;
+	        if (count == 0) {
+	            // If the record does not exist, create SQL insert query
+	            sql = "INSERT INTO user_uploads (user_id, image, square_id) values (?, ?, ?)";
+	        } else {
+	            // If the record exists, create SQL update query
+	            sql = "UPDATE user_uploads SET user_id = ?, image = ? WHERE square_id = ?";
+	        }
+
+	        // Close the previous statement
+	        pstmt.close();
 
 	        // Create PrepareStatement object
-	        PreparedStatement pstmt = conn.prepareStatement(sql);
+	        pstmt = conn.prepareStatement(sql);
 
 	        // Get the user_id somehow, for now it's hardcoded
 	        String userId = "example_user_id";
-
-	        // Get the square_id from the request
-	        String squareId = request.getParameter("square_id");
 
 	        // This assumes you have an input with name 'file' in your form
 	        String image = request.getParameter("image");
@@ -111,21 +133,27 @@ public class UploadServlet extends HttpServlet {
 	        System.out.println("squareId: " + squareId);
 	        System.out.println("image: " + image);
 
-            // Sets the values in the PrepareStatement
-            pstmt.setString(1, userId);
-            pstmt.setString(2, image);
-            pstmt.setString(3, squareId);
+	        // Sets the values in the PrepareStatement
+	        pstmt.setString(1, userId);
+	        pstmt.setString(2, image);
+	        pstmt.setString(3, squareId);
 
-            // Executes the SQL statement
-            pstmt.executeUpdate();
+	        // Executes the SQL statement
+	        pstmt.executeUpdate();
 	    } catch (Exception e) {
 	        // handle exception
 	        System.out.println("Exception: " + e.getMessage());
 	        e.printStackTrace();
 	    } finally {
 	        try {
+	            if (rs != null) {
+	                rs.close();
+	            }
+	            if (pstmt != null) {
+	                pstmt.close();
+	            }
 	            if (conn != null) {
-	            	System.out.println("Closing database");
+	                System.out.println("Closing database");
 	                conn.close();
 	            }
 	        } catch (Exception ex) {
