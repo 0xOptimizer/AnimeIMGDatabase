@@ -1,26 +1,83 @@
 package tewi;
 
+import tewi.SquareImage;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 
-@WebServlet({"/Admin", "/Main"})
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Blob;
+import java.util.Base64;
+import java.util.ArrayList;
+import java.util.List;
+
+@WebServlet("/api/upload")
 public class UploadServlet extends HttpServlet {
 	private static final long serialVersionUID = 777L;
-	private static final int NUM_OF_SQUARES = 10;
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("numOfSquares", NUM_OF_SQUARES);
-        String path = request.getServletPath();
-        RequestDispatcher dispatcher = request.getRequestDispatcher(path + ".jsp");
-        dispatcher.forward(request, response);
-    }
+	    String url = "jdbc:mysql://194.163.35.1:3306/u797587982_husnap";
+	    String username = "u797587982_husnap";
+	    String password = "tewi^uOWl&c[z62&O";
+	    Connection conn = null;
+	    List<SquareImage> images = new ArrayList<>(); // to store image objects
+
+	    try {
+	        Class.forName("com.mysql.cj.jdbc.Driver");
+	        conn = DriverManager.getConnection(url, username, password);
+
+	        String sql = "SELECT image, square_id FROM user_uploads";
+
+	        PreparedStatement pstmt = conn.prepareStatement(sql);
+
+	        ResultSet rs = pstmt.executeQuery();
+	        
+	        System.out.println(sql);
+
+	        while(rs.next()) {
+	            String base64Image = rs.getString("image");
+	            int squareId = rs.getInt("square_id");
+	            
+	            // If base64Image or squareId is null, continue to next iteration
+	            if(base64Image == null || rs.wasNull()) {
+	                System.out.println("Null image data or squareId found, skipping...");
+	                continue;
+	            }
+
+	            images.add(new SquareImage(base64Image, squareId)); // add to list
+	        }
+
+	        // Convert list to JSON and write to response
+	        String json = "["; // manually creating a JSON array
+	        for (SquareImage image : images) {
+	            // manually creating a JSON object
+	            json += "{\"image\":\"" + image.getImage() + "\", \"squareId\":" + image.getSquareId() + "},";
+	        }
+	        json = json.substring(0, json.length()-1) + "]"; // removing last comma and adding closing bracket
+
+	        response.setContentType("application/json");
+	        response.setCharacterEncoding("UTF-8");
+	        response.getWriter().write(json);
+	    } catch(Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        if(conn != null) {
+	            try {
+	                System.out.println("Closing database");
+	                conn.close();
+	            } catch(SQLException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	    }
+	}
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -75,16 +132,5 @@ public class UploadServlet extends HttpServlet {
 	            ex.printStackTrace();
 	        }
 	    }
-	}
-	// Helper method to get the file name from the part
-	private String getFileName(Part part) {
-	    String contentDisp = part.getHeader("content-disposition");
-	    String[] items = contentDisp.split(";");
-	    for (String s : items) {
-	        if (s.trim().startsWith("filename")) {
-	            return s.substring(s.indexOf("=") + 2, s.length() - 1);
-	        }
-	    }
-	    return "";
 	}
 }

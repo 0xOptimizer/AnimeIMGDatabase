@@ -42,6 +42,37 @@ $(document).ready(function() {
 	<c:forEach var="i" begin="1" end="${numOfSquares}">
 		setupDropZone('.square[data-square_id=${i}]');
 	</c:forEach>
+	$.get('/AnimeIMGDatabase/api/upload', function(images) {
+	    if(images != null) {
+	    	console.log('Images found');
+	        images.forEach(function(imageObj) {
+	        	console.log('Parsing object: ', imageObj);
+	            if(imageObj != null && imageObj.image != null) {
+	            	console.log("Appending image to " + imageObj.squareId);
+	            	console.log(typeof imageObj.squareId);
+	                var square = $('.square[data-square_id="' + imageObj.squareId + '"]');
+	                console.log(square);
+	                var img = document.createElement('img');
+	                img.src = imageObj.image; // adjust the mime type if necessary
+	                square.append(img);
+	                
+	             	// Set the CSS properties of the image to fill the drop-zone
+	                img.style.width = "100%";
+	                img.style.height = "100%";
+	                img.style.objectFit = "cover";
+	                
+	                // Add the drop animation
+	                img.style.animation = "dropAnimation 0.4s cubic-bezier(.22,.68,0,1.71)";
+	                img.parent().css("overflow", "visible");
+	                
+	             	// Listen for the end of the animation and then set the overflow back to 'hidden'
+	                img.addEventListener('animationend', function() {
+	                    img.parent().css("overflow", "hidden");
+	                });
+	            }
+	        });
+	    }
+	});
 });
 </script>
     

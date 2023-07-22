@@ -32,7 +32,7 @@ function previewImage(input, dropZone) {
             
             // Send image and square_id to server for uploading
             $.ajax({
-                url: '/AnimeIMGDatabase/Main',
+                url: '/AnimeIMGDatabase/api/upload',
                 type: 'POST',
                 data: {
 			        image: img.src,
