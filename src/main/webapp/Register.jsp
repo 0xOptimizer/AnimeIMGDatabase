@@ -223,17 +223,19 @@ input{
 <body>
     <div class="card">
         <p class="welcomeText"><strong>Register</strong></p>
-         <label for="email"><strong>Email:</strong></label>
-         <input type="email" id="email" name="email" required placeholder="Email">
-         <br>
-         <label for="password"><strong>Password:</strong></label>
-         <input type="password" id="password" name="password" required placeholder="Password">
-         <br>
-         <input type="hidden" name="action" value="register">
-         <div class="btn-container">
-             <button class="register-submit-btn" type="submit">Register</button>
-         </div>
-        <p><%= request.getAttribute("message") %></p>
+        <form action="/AnimeIMGDatabase/api/register" method="post">
+            <label for="email"><strong>Email:</strong></label>
+            <input type="email" id="email" name="email" required placeholder="Email">
+            <br>
+            <label for="password"><strong>Password:</strong></label>
+            <input type="password" id="password" name="password" required placeholder="Password">
+            <br>
+            <input type="hidden" name="action" value="register">
+            <div class="btn-container">
+                <button class="register-submit-btn" type="submit">Register</button>
+            </div>
+        </form>
+        <p>${message}</p> <!-- EL expression to display the message from the servlet -->
     </div>
     <!-- Add any other content or elements as needed -->
     <script src="assets/js/jquery-3.7.0.min.js"></script>
@@ -241,17 +243,17 @@ input{
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script>
     $(document).ready(function() {
-    	$('.register-submit-btn').on('click', function() {
-    		let email = $('input[name="email"]').val();
-    		let password = $('input[name="password"]').val();
-    		
-    		$.ajax({
+        $('.register-submit-btn').on('click', function() {
+            let email = $('input[name="email"]').val();
+            let password = $('input[name="password"]').val();
+
+            $.ajax({
                 url: '/AnimeIMGDatabase/api/register',
                 type: 'POST',
                 data: {
-    		        email: email,
-    		        password: password
-    		    },
+                    email: email,
+                    password: password
+                },
                 success: function(response) {
                     console.log('Register successful!');
                     console.log(response);
@@ -260,8 +262,7 @@ input{
                     console.log('Register error: ', response);
                 }
             });
-    	});
-        
+        });
     });
     </script>
 </body>

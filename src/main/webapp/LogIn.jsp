@@ -221,7 +221,7 @@ input{
 <body>
     <div class="card">
         <p class="welcomeText"><strong>Log In</strong></p>
-        <form action="UserServlet" method="post">
+        <form action="/AnimeIMGDatabase/api/login" method="post">
             <label for="email"><strong>Email:</strong></label>
             <input type="email" id="email" name="email" required placeholder="Email">
             <br>
@@ -233,7 +233,7 @@ input{
                 <button type="submit">Log In</button>
             </div>
         </form>
-        <p><%= request.getAttribute("message") %></p>
+        <p>${message}</p> <!-- EL expression to display the message from the servlet -->
     </div>
     <!-- Add any other content or elements as needed -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

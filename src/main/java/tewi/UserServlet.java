@@ -7,164 +7,109 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-@WebServlet("/api/register")
+@WebServlet("/api/*")
 public class UserServlet extends HttpServlet {
     private static final long serialVersionUID = 2L;
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    	System.out.println("request: " + request);
-    	
         String url = "jdbc:mysql://194.163.35.1:3306/u797587982_husnap";
         String username = "u797587982_husnap";
         String password = "tewi^uOWl&c[z62&O";
         Connection conn = null;
-        
+        String action = request.getParameter("action"); // Get the action parameter directly
+        String contextPath = request.getContextPath(); // Get the context path
+
         try {
             // Register JDBC driver
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             // Open a connection
             conn = DriverManager.getConnection(url, username, password);
-        
-            String action = request.getParameter("action");
 
-            if (action != null) {
-                if (action.equals("register")) {
-                    registerUser(request, response, conn);
-                } else if (action.equals("login")) {
-                    loginUser(request, response, conn);
+            if ("register".equals(action)) {
+                String email = request.getParameter("email");
+                String regPassword = request.getParameter("password"); // Renamed to regPassword
+
+                // Check if the email is already taken or is the reserved email
+                if ("tewi@tewi.club".equals(email) || isEmailTaken(email, conn)) {
+                    response.getWriter().write("The email is already taken");
+                } else {
+                    String message = registerUser(email, regPassword, conn);
+                    response.getWriter().write(message); // Send the message as a response
                 }
+            } else if ("login".equals(action)) {
+                String email = request.getParameter("email");
+                String loginPassword = request.getParameter("password"); // Renamed to loginPassword
+                loginUser(email, loginPassword, conn, response, contextPath); // Pass contextPath to loginUser
             }
-        } catch (Exception e) {
-            // handle exception
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
+            response.getWriter().write("Database error occurred. Please try again later.");
         } finally {
             try {
                 if (conn != null) {
                     conn.close();
                 }
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        }
-    }
-
-    private void registerUser(HttpServletRequest request, HttpServletResponse response, Connection conn)
-            throws ServletException, IOException {
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        String message;
-
-        // Check if the email is already taken
-        if (isEmailTaken(email, conn)) {
-            message = "The email has already been taken";
-        } else {
-            // Insert new user into the database
-            if (insertUser(email, password, conn)) {
-                message = "Registration successful";
-            } else {
-                message = "Registration failed";
-            }
-        }
-
-        request.setAttribute("message", message);
-        request.getRequestDispatcher("/Register").forward(request, response);
-    }
-
-    private boolean isEmailTaken(String email, Connection conn) {
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
-        try {
-            pstmt = conn.prepareStatement("SELECT * FROM user_login WHERE user_email = ?");
-            pstmt.setString(1, email);
-            rs = pstmt.executeQuery();
-            return rs.next();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (pstmt != null) {
-                    pstmt.close();
-                }
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
         }
     }
 
-    private boolean insertUser(String email, String password, Connection conn) {
-        PreparedStatement pstmt = null;
-        try {
-            pstmt = conn.prepareStatement("INSERT INTO user_login (user_email, user_password) VALUES (?, ?)");
+    private String registerUser(String email, String password, Connection conn) throws SQLException {
+        // Insert new user into the database
+        if (insertUser(email, password, conn)) {
+            return "Registration successful";
+        } else {
+            return "Registration failed";
+        }
+    }
+
+    private boolean isEmailTaken(String email, Connection conn) throws SQLException {
+        try (PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM user_login WHERE user_email = ?")) {
+            pstmt.setString(1, email);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                return rs.next();
+            }
+        }
+    }
+
+    private boolean insertUser(String email, String password, Connection conn) throws SQLException {
+        try (PreparedStatement pstmt = conn.prepareStatement("INSERT INTO user_login (user_email, user_password) VALUES (?, ?)")) {
             pstmt.setString(1, email);
             pstmt.setString(2, password);
             return pstmt.executeUpdate() > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        } finally {
-            try {
-                if (pstmt != null) {
-                    pstmt.close();
-                }
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
         }
     }
-    
-    private void loginUser(HttpServletRequest request, HttpServletResponse response, Connection conn)
-            throws ServletException, IOException {
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
 
+    private void loginUser(String email, String password, Connection conn, HttpServletResponse response, String contextPath) throws SQLException, IOException {
         // Check if the user email and password match the admin credentials
-        if (email.equals("tewi@tewi.club") && password.equals("inaba")) {
-            response.sendRedirect("/Admin");
+        if ("tewi@tewi.club".equals(email) && "inaba".equals(password)) {
+            // Redirect to Admin.jsp for admin users
+            response.sendRedirect(contextPath + "/Admin.jsp");
         } else {
             // Check if the user exists in the database
             if (isUserValid(email, password, conn)) {
-                response.sendRedirect("/Main");
+                // Redirect to Main.jsp for normal users
+                response.sendRedirect(contextPath + "/Main.jsp");
             } else {
-                String message = "Invalid email or password";
-                request.setAttribute("message", message);
-                request.getRequestDispatcher("/LogIn").forward(request, response);
+                // Invalid credentials, show the error message on the login page
+                response.getWriter().write("Invalid email or password");
             }
         }
     }
 
-    private boolean isUserValid(String email, String password, Connection conn) {
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
-        try {
-            pstmt = conn.prepareStatement("SELECT * FROM user_login WHERE user_email = ? AND user_password = ?");
+    private boolean isUserValid(String email, String password, Connection conn) throws SQLException {
+        try (PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM user_login WHERE user_email = ? AND user_password = ?")) {
             pstmt.setString(1, email);
             pstmt.setString(2, password);
-            rs = pstmt.executeQuery();
-            return rs.next();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (pstmt != null) {
-                    pstmt.close();
-                }
-            } catch (SQLException ex) {
-                ex.printStackTrace();
+            try (ResultSet rs = pstmt.executeQuery()) {
+                return rs.next();
             }
         }
     }
