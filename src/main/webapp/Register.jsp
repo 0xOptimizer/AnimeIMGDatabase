@@ -223,23 +223,46 @@ input{
 <body>
     <div class="card">
         <p class="welcomeText"><strong>Register</strong></p>
-        <form action="UserServlet" method="post">
-            <label for="email"><strong>Email:</strong></label>
-            <input type="email" id="email" name="email" required placeholder="Email">
-            <br>
-            <label for="password"><strong>Password:</strong></label>
-            <input type="password" id="password" name="password" required placeholder="Password">
-            <br>
-            <input type="hidden" name="action" value="register">
-            <div class="btn-container">
-                <button type="submit">Register</button>
-            </div>
-        </form>
+         <label for="email"><strong>Email:</strong></label>
+         <input type="email" id="email" name="email" required placeholder="Email">
+         <br>
+         <label for="password"><strong>Password:</strong></label>
+         <input type="password" id="password" name="password" required placeholder="Password">
+         <br>
+         <input type="hidden" name="action" value="register">
+         <div class="btn-container">
+             <button class="register-submit-btn" type="submit">Register</button>
+         </div>
         <p><%= request.getAttribute("message") %></p>
     </div>
     <!-- Add any other content or elements as needed -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="assets/js/jquery-3.7.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script>
+    $(document).ready(function() {
+    	$('.register-submit-btn').on('click', function() {
+    		let email = $('input[name="email"]').val();
+    		let password = $('input[name="password"]').val();
+    		
+    		$.ajax({
+                url: '/AnimeIMGDatabase/api/register',
+                type: 'POST',
+                data: {
+    		        email: email,
+    		        password: password
+    		    },
+                success: function(response) {
+                    console.log('Register successful!');
+                    console.log(response);
+                },
+                error: function(response) {
+                    console.log('Register error: ', response);
+                }
+            });
+    	});
+        
+    });
+    </script>
 </body>
 </html>

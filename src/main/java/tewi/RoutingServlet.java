@@ -9,7 +9,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 
-@WebServlet({"/Admin", "/Main"})
+@WebServlet({"/Admin", "/Main", "/Register"})
 public class RoutingServlet extends HttpServlet {
 	private static final long serialVersionUID = 3L;
 	private static final int NUM_OF_SQUARES = 10;
