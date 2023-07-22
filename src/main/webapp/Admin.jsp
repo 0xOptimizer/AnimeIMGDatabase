@@ -13,7 +13,7 @@
 <body>
 <div class="card">
   <img class ="HuLogo" src="HuSnap.png" alt="HuSnap Logo">
-  <p class="welcomeText">Welcome, [USER]</p>
+  <p class="welcomeText">Welcome, Admin!</p>
   
 	<!-- Additional squares -->
   <div class="square-container">
